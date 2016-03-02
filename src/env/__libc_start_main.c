@@ -35,7 +35,7 @@ void __init_libc(char **envp, char *pn)
 		for (i=0; pn[i]; i++) if (pn[i]=='/') __progname = pn+i+1;
 	}
 
-	__init_tls(aux);
+	//__init_tls(aux);
 	__init_ssp((void *)aux[AT_RANDOM]);
 
 	if (aux[AT_UID]==aux[AT_EUID] && aux[AT_GID]==aux[AT_EGID]
@@ -63,14 +63,12 @@ static void libc_start_init(void)
 
 weak_alias(libc_start_init, __libc_start_init);
 
-int __libc_start_main(int (*main)(int,char **,char **), int argc, char **argv)
+void __libc_start_main(int (*main)(int,char **,char **), int argc, char **argv)
 {
 	char **envp = argv+argc+1;
 
 	__init_libc(envp, argv[0]);
 	__libc_start_init();
 
-	/* Pass control to the application */
-	exit(main(argc, argv, envp));
-	return 0;
+	main(argc, argv, envp);
 }
