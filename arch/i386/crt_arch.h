@@ -13,4 +13,8 @@ START ":\n"
 "1:	addl $_DYNAMIC-1b,(%esp) \n"
 "	push %eax \n"
 "	call " START "_c \n"
+"	add $16, %esp \n" // !!!! MANUAL SET !!!!
+" push %eax \n"
+" xor %eax, %eax \n"
+" ret"
 );
