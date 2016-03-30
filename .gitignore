@@ -8,3 +8,4 @@ config.mak
 lib/musl-gcc.specs
 src/internal/version.h
 /obj/
+build*/
